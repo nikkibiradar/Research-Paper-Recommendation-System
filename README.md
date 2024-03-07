@@ -22,6 +22,10 @@ Instead of relying on basic keyword matching, the system uses these semantic vec
 ### Optimizations Done  
 Since the dataset size has been very large as well as the size of the pickle moules, we have done optimization of our app by using caching. we have implemented an object-oriented and function-based architecture in the script in order to make caching of resources easier. By the use of Streamlit’s caching options, we were able to bring the response and loading time of the app from 4 minutes, down to 1 minute which is a great feat considering the app utilizes heavy models like Universal Sentence Encoder as well as the spaCy Tokenizer. we were also able to make our script faster in general by segmentation of model components into different files and being integrated all together during app’s runtime. This lead our app to reach an even faster runtime during it’s repetitive executions.
 ## System Architecture  
+
+![SystemArch](images/SystemArch.png)
+> System Architecture
+
 1. Data Extraction: The dataset is loaded into the Jupyter notebook, we filter it out to keep research paper published since 2019 to make sure that the recommendations received are recent and way more relevant to the user's inputs. we make use of mostly 3 columns here: title, abstract and year to arrange the papers by a specific order.
 2. Data Pre-processing: The pre-processing includes checking for missing or invalid data, once this cleaning is done, we move onto checking trends and patterns in the text like word count. This helps us select models and learning techniques accordingly.
 3. Tokenization: Now that we have a dataframe of research papers that has been cleaned and processed once, we move onto tokenization. we begin with normalizing the text first i.e. making everything in text lowercase, removing punctuations and other stop words to make sure that our embeddings can be as accurate as possible. we use the SpaCy library for this due to its powerful performance as part of the NLTK toolkit. These tokenized and processed abstracts are put into a new dataframe.
@@ -33,12 +37,29 @@ Since the dataset size has been very large as well as the size of the pickle mou
 
 The process from step 7 is repeat for every new input the application receives from the user.
 
-## UweAspects/Frontend  
+## UI Aspects/Frontend 
+
+![UI](images/UI.png)
+> UI Overview
+
 ## Data set  
 The research paper data is extracted from the dataset that is a mirror of the original ArXiv data i.e., a JSON file named "arxiv-metadata-oai-snapshot.json." Using a generator function, we read the file line
 by line, parsing each line into a Python dictionary using json.loads(). An empty DataFrame called dataframe is initialized with columns for 'title,' 'year,' and 'abstract.' We iterate through each paper and extract relevant information such as the publication year, title, and abstract. Papers with an update date earlier than 2019 are excluded. The extracted details are then appended to the corresponding lists in the dataframe. We effectively filter and organize information from the JSON file, focusing on papers updated after 2019 and compiling their titles, publication years, and abstracts into a structured data format for further analysis.
 ## Results including preliminary evaluations  
-The results as well as the preliminary evaluation is shown on the Uweof the application where the results are the recommended papers, and the cosine similarity graph is the preliminary evaluations done for that search.
+The results as well as the preliminary evaluation is shown on the UI of the application where the results are the recommended papers, and the cosine similarity graph is the preliminary evaluations done for that search.
+
+![onlyTitle](images/onlyTitle.png)
+> When only title is entered
+
+![OutputTitle](images/OutputTitle.png)
+> Output only when title is entered
+
+![Both](images/Both.png)
+> When both title and abstract are entered
+
+![outputBoth](images/outputBoth.png)
+> Output when title and abstract are entered
+
 ## References
 1. Cer, Daniel, et al. "Universal sentence encoder." arXiv preprint arXiv:1803.11175 (2018).
 2. https://www.kaggle.com/datasets/Cornell-University/arxiv/data
